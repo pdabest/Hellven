@@ -92,7 +92,11 @@
         android:layout_marginTop="16dp"
         android:text="@string/label_start_custom_tab"
         android:background="#00999999"/>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dp">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,26 +104,23 @@
             android:background="#00999999"
             android:onClick="hitomi"/>
 
-</LinearLayout>
-
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:id="@+id/button2"
-        android:background="#00999999"
-        android:layout_marginLeft="124dp"
-        android:layout_marginStart="124dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <Spinner
-        android:id="@+id/music"
-        android:entries="@array/music"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button2"
-        android:layout_alignTop="@+id/button2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:onClick="img"
+        android:text="랜덤이미지"
+        android:background="#00999999" />
+
+</LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/list"
+            android:entries="@array/music"></ListView>
+        </LinearLayout>
+</LinearLayout>
 </RelativeLayout>

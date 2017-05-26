@@ -18,7 +18,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,15 +31,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Random;
 
 public class DemoListActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,7 +48,7 @@ public class DemoListActivity extends AppCompatActivity implements View.OnClickL
    private MediaPlayer mp;
 
    //버전확인 용 변수
-    private int versioncode = 1; //어플내 버전
+    private int versioncode = 2; //어플내 버전
     private ProgressDialog dialog;
     String xml;
 
@@ -240,41 +238,47 @@ public class DemoListActivity extends AppCompatActivity implements View.OnClickL
             {//start catch
                 Toast.makeText(getApplicationContext(), "버전로딩중 오류가 발생하였습니다.", Toast.LENGTH_LONG).show();
             }//end catch
-            Spinner music = (Spinner)findViewById(R.id.music);
-            music.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            ListView list = (ListView)findViewById(R.id.list);
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    switch (i) {
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                    String URL = "http://bugye6143.000webhostapp.com/Music/";
+                    switch (i) {
                         case 0 :
-                            Uri file = Uri.parse("http://bugye6143.000webhostapp.com/Music/1.mp3");
+                            mp.stop();
+                            break;
+                        case 1:
+
+                            Uri file = Uri.parse(URL + i +".mp3");
                             mp = MediaPlayer.create(DemoListActivity.this, file);
                             mp.setLooping(true);
                             mp.start();
-                            break;
-                        case 1:
-                            mp.stop();
-                            Uri file2 = Uri.parse("http://bugye6143.000webhostapp.com/Music/2.mp3");
-                            mp = MediaPlayer.create(DemoListActivity.this, file2);
-                            mp.setLooping(true);
-                            mp.start();
+
                             break;
                         case 2:
                             mp.stop();
-                            Uri file3 = Uri.parse("http://bugye6143.000webhostapp.com/Music/3.mp3");
-                            mp = MediaPlayer.create(DemoListActivity.this, file3);
+                            Uri file2 = Uri.parse(URL + i + ".mp3");
+                            mp = MediaPlayer.create(DemoListActivity.this, file2);
                             mp.setLooping(true);
                             mp.start();
                             break;
                         case 3 :
                             mp.stop();
+                            Uri file3 = Uri.parse(URL + i + ".mp3");
+                            mp = MediaPlayer.create(DemoListActivity.this, file3);
+                            mp.setLooping(true);
+                            mp.start();
                             break;
+                        case 4 :
+                            mp.stop();
+                            Uri file4 = Uri.parse(URL + i + ".mp3");
+                            mp = MediaPlayer.create(DemoListActivity.this, file4);
+                            mp.setLooping(true);
+                            mp.start();
+                            break;
+
                     }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
                 }
             });
             findViewById(R.id.start_custom_tab).setOnClickListener(this);
@@ -313,6 +317,11 @@ public class DemoListActivity extends AppCompatActivity implements View.OnClickL
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://drive.google.com/file/d/0B4T5bWOlBITkRFFyb2Z6UHhKNVk/view"));
             startActivity(i);
         }
+        public void img (View v) {
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://10000img.com"));
+            startActivity(i);
+
+        }
 
 
             public void backButtonHandler() {
@@ -327,7 +336,7 @@ public class DemoListActivity extends AppCompatActivity implements View.OnClickL
 
                 // I've included a simple dialog icon in my project named "dialog_icon", which's image file is copied and pasted in all "drawable" folders of "res" folders of the project. You can include any dialog image of your wish and rename it to dialog_icon.
 
-                alertDialog.setMessage("종료하시겠습니까?" +
+                alertDialog.setMessage("종료하시겠습니까?\n" +
                         "종료시 노래도 같이 꺼집니다.");
 
                 // Setting Icon to Dialog
