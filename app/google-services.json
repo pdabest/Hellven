@@ -77,6 +77,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "412317589545-4p47dj2425pc913hvpojsk7690i5mm5i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hellven.net",
+            "certificate_hash": "5cbc3c1cc62d9fcae5ef012303d5122bc5c17d41"
+          }
+        },
+        {
           "client_id": "412317589545-fdqa3m6ettvi85tr4fadpr09n63o68rr.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -91,8 +99,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412317589545-fdqa3m6ettvi85tr4fadpr09n63o68rr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

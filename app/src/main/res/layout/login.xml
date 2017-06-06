@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#353535">
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/id"
+        android:layout_centerHorizontal="true"
+        android:hint="Id"
+        android:layout_marginTop="151dp"
+        android:layout_marginBottom="1dp"
+        android:background="#6c6c6c"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/pw"
+        android:layout_centerHorizontal="true"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/id"
+        android:background="#6c6c6c"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:text="Login"
+        android:id="@+id/lg"
+        android:textAllCaps="false"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/pw"
+        android:layout_alignLeft="@+id/pw"
+        android:layout_alignStart="@+id/pw"
+        android:layout_alignRight="@+id/pw"
+        android:layout_alignEnd="@+id/pw"
+        android:background="#6c6c6c"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember login"
+        android:id="@+id/auto"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/lg"
+        android:layout_centerHorizontal="true"
+        android:background="#6c6c6c"/>
+
+
+
+</RelativeLayout>

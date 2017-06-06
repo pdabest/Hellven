@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
+
 /**
  * Created by PC on 2017-05-30.
  */
@@ -38,7 +40,7 @@ public class chatting extends AppCompatActivity {
         final EditText editText = (EditText) findViewById(R.id.edt);
         Button sendButton = (Button) findViewById(R.id.send);
 
-            final String userName = "제작자";
+            final String userName = "User" + new Random().nextInt(100000);
 
         // 기본 Text를 담을 수 있는 simple_list_item_1을 사용해서 ArrayAdapter를 만들고 listview에 설정
 

@@ -4,23 +4,31 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.StrictMode;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -30,8 +38,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 public class MainActivity extends AppCompatActivity {
 
+    ListView listview;
+    ListViewAdapter adapter;
     //뮤직플레이어 변수
     private MediaPlayer mp;
 
@@ -39,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> data;
 
     //버전확인 용 변수
-    private int versioncode = 5; //어플내 버전
+    private int versioncode = 7; //어플내 버전
     private ProgressDialog dialog;
     String xml;
 
@@ -51,9 +62,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar3));
 
 
 
+        // ActionBar에 타이틀 변경
+        getSupportActionBar().setTitle("Hellven App");
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3383231168405808~2012876371");
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         //추가한 라인
         FirebaseMessaging.getInstance().subscribeToTopic("news");
@@ -146,10 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         // Setting Dialog Title
                         // Setting Dialog Message
 
-                        alertDialog.setTitle("업데이트");
-
-                        // I've included a simple dialog icon in my project named "dialog_icon", which's image file is copied and pasted in all "drawable" folders of "res" folders of the project. You can include any dialog image of your wish and rename it to dialog_icon.
-                        alertDialog.setMessage("업데이트 하시겠습니까?");
+                        alertDialog.setTitle("업데이트 하시겠습니까?");
 
                         // Setting Icon to Dialog
                         // Setting Positive "Yes" Button
@@ -214,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        data = new ArrayList<String>();
+       /* data = new ArrayList<String>();
         data.add("노래끄기");
         data.add("Counting Stars");
         data.add("Heart Attack");
@@ -226,18 +242,214 @@ public class MainActivity extends AppCompatActivity {
         data.add("Komm Süsser Tod");
         data.add("VOODOO KINGDOM");
         data.add("Don't Cry");
+        */
+
+// Adapter 생성
+        adapter = new ListViewAdapter() ;
 
         //어댑터 생성
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, data);
-        ListView list = (ListView)findViewById(R.id.list);
-        list.setAdapter(adapter);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        //      this, android.R.layout.simple_list_item_1, data);
+        listview = (ListView)findViewById(R.id.list);
+        listview.setAdapter(adapter);
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // 첫 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.ic_stop_black_24dp),
+                "노래 끄기", "") ;
+        // 두 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.countingstars),
+                "Counting Stars", "Alex Goot, Kurt Schneider, and Chrissy Costanza Cover") ;
+        // 세 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.heartattack),
+                "Heart Attack", "Sam Tsui & Chrissy Costanza of ATC") ;
+        // 네 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.seeyouagain),
+                "See You Again", "Against The Current Cover") ;
+        // 다섯 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.kyoukasuigetsu),
+                "鏡花水月", "まふまふ") ;
+        // 여섯 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.catchmybreath),
+                "Catch My Breath", "Alex Goot & Against The Current") ;
+        // 일곱 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.onemorenight),
+                "One More Night", "Alex Goot & Friends") ;
+        // 여덟 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.hellomrmyyesterday),
+                "Hello Mr. My Yesterday", "명탐정 코난 10기 Opening") ;
+        // 아홉 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.kommsussertod),
+                "Komm Süsser Tod", "The End Of Evangelion") ;
+        // 열 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.voodookingdom),
+                "VOODOO KINGDOM", "죠죠의 기묘한 모험 극장판 팬텀 블러드") ;
+        // 열하나 번째 아이템 추가.
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.dontcry),
+                "Don't Cry", "하현우") ;
+
+
+
+
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                List_Item item = (List_Item) adapterView.getItemAtPosition(i);
+                String titlerStr = item.getTitle();
+                String artistStr = item.getArtist();
+                Drawable img = item.getImage();
 
+                switch (i) {
+                    case 0 :
+                        if (!mp.isPlaying()) {
+                            Toast.makeText(MainActivity.this, "끌 노래가 없습니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            mp.stop();
+                        }
+                        break;
+                    case 1 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "1.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "1.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
+                    case 2 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "2.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "2.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
+                    case 3 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "3.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "3.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
+                    case 4 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "4.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "4.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
+                    case 5 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "5.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "5.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
+                    case 6 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "6.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "6.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
+                    case 7 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "7.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "7.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
+                    case 8 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "8.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "8.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
+                    case 9 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "9.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "9.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
+                    case 10 :
+                        if (!mp.isPlaying()) {
+                            Uri file = Uri.parse(URL + "10.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        } else {
+                            mp.stop();
+                            Uri file = Uri.parse(URL + "10.mp3");
+                            mp = MediaPlayer.create(MainActivity.this, file);
+                            mp.setLooping(true);
+                            mp.start();
+                        }
+                        break;
 
+                }
+                /*
                 if (data.get(i) == "노래끄기") {
                     if (!mp.isPlaying()) {
                         Toast.makeText(MainActivity.this, "끌 노래가 없습니다.", Toast.LENGTH_SHORT).show();
@@ -385,6 +597,7 @@ public class MainActivity extends AppCompatActivity {
                         mp.start();
                     }
                 }
+                */
             }
         });
 
@@ -431,8 +644,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.setting) {
+            Toast.makeText(this, "설정 테스트", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(MainActivity.this, JoinActivity.class);
+            startActivity(i);
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     public void tumblr (View v) {
-        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://save33334.tumblr.com/"));
+        Intent i = new Intent(MainActivity.this, Tumblr.class);
         startActivity(i);
     }
 

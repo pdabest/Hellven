@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.hellven.net.MainActivity">
+
+
 
 
     <ImageView
@@ -17,9 +20,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -99,7 +111,8 @@
                 android:layout_toRightOf="@+id/button"
                 android:background="#00999999"
                 android:onClick="random"
-                android:text="랜덤이미지" />
+                android:text="랜덤이미지"
+                android:id="@+id/button4" />
 
 
             <Button
@@ -110,29 +123,19 @@
                 android:layout_alignParentTop="true"
                 android:background="#00999999"
                 android:onClick="chat"
-                android:text="테스트 버튼"
+                android:text="채팅"
                 android:id="@+id/button2" />
 
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <Button
+                android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00999999"
                 android:onClick="tumblr"
-                android:text="텀블러1"
-                android:id="@+id/button3"
+                android:text="텀블러모음"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-
+                android:layout_toLeftOf="@+id/button2"
+                android:layout_toStartOf="@+id/button2" />
 
 
         </RelativeLayout>
@@ -149,6 +152,18 @@
             android:divider="@null"
             android:layout_weight="1"
             android:transcriptMode="alwaysScroll"></ListView>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
     </LinearLayout>
 
     </LinearLayout>
